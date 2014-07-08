@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wearable.Wearable;
-
 
 public class LeashActivity extends Activity {
 
@@ -30,7 +27,7 @@ public class LeashActivity extends Activity {
         toggleAlarmOperation.setAction(SendMessageService.ACTION_REMOTE_ALARM_ON);
         startService(toggleAlarmOperation);
 
-        com.t3hh4xx0r.leash.NotificationManager.showMainNotificationStop(this);
+        WearNotificationManager.showMainNotificationStop(this);
     }
 
     public void openOnPhone() {

@@ -12,7 +12,6 @@ import android.preference.PreferenceManager;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.Wearable;
-import com.t3hh4xx0r.leash.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -130,7 +129,7 @@ public class SettingsActivity extends PreferenceActivity {
                         findPreference("enable_leash_wear").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                             @Override
                             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                new SendMessageTask(mGoogleApiClient, preference.getContext(), Boolean.parseBoolean(newValue.toString()) ? SendMessageTask.SendMessageType.ENABLE_WEAR_LEASH : SendMessageTask.SendMessageType.DISABLE_WEAR_LEASH).execute();
+                                new PhoneSendMessageTask(mGoogleApiClient, preference.getContext(), Boolean.parseBoolean(newValue.toString()) ? PhoneSendMessageTask.SendMessageType.ENABLE_WEAR_LEASH : PhoneSendMessageTask.SendMessageType.DISABLE_WEAR_LEASH).execute();
                                 sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, newValue);
                                 return true;
                             }
@@ -150,7 +149,9 @@ public class SettingsActivity extends PreferenceActivity {
         findPreference("find_wear").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-              new SendMessageTask(mGoogleApiClient, preference.getContext(), SendMessageTask.SendMessageType.FIND_ON).execute();
+                Intent i = new Intent(preference.getContext(), PhoneSendMessageService.class);
+                i.setAction(PhoneSendMessageService.ACTION_REMOTE_ALARM_ON);
+                startService(i);
                 return false;
             }
         });

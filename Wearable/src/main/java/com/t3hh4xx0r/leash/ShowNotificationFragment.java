@@ -56,7 +56,7 @@ public class ShowNotificationFragment extends Fragment {
                 }, 2739);
 //                openAnim.stop();
 //                openAnim.start();
-                NotificationManager.showMainNotificationStart(getActivity());
+                WearNotificationManager.showMainNotificationStart(getActivity());
                 getActivity().finish();
             }
         });

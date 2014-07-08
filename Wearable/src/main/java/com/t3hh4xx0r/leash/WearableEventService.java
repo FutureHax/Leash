@@ -7,22 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 
-import com.google.android.gms.wearable.DataEvent;
-import com.google.android.gms.wearable.DataEventBuffer;
-import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
-
-import java.io.IOException;
 
 /**
  * Listens for disconnection from home device.
@@ -106,7 +97,7 @@ public class WearableEventService extends WearableListenerService {
         Log.d("MESSAGE RECEIVED", messageEvent.getPath());
         if (messageEvent.getPath().equals("find_wear_on")) {
             vibe.vibrate(new long[]{0, 500, 250}, 0);
-            com.t3hh4xx0r.leash.NotificationManager.showWearNotification(this);
+            WearNotificationManager.showWearNotification(this);
         } else if (messageEvent.getPath().equals("find_wear_off")) {
             vibe.cancel();
         } else if (messageEvent.getPath().equals("enable_leash")) {

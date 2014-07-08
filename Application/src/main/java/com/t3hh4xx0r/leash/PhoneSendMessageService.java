@@ -12,23 +12,21 @@ import com.google.android.gms.wearable.Wearable;
 /**
  * Creates a sound on the paired phone to find it.
  */
-public class SendMessageService extends IntentService implements GoogleApiClient.ConnectionCallbacks,
+public class PhoneSendMessageService extends IntentService implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "ExampleFindPhoneApp";
 
     public static final String ACTION_REMOTE_ALARM_ON = "action_remote_alarm_on";
     public static final String ACTION_REMOTE_ALARM_OFF = "action_remote_alarm_off";
-    public static final String ACTION_LOCAL_ALARM_ON = "action_local_alarm_on";
     public static final String ACTION_LOCAL_ALARM_OFF = "action_local_alarm_off";
-    public static final String ACTION_OPEN = "open";
 
     // Timeout for making a connection to GoogleApiClient (in milliseconds).
     private static final long CONNECTION_TIME_OUT_MS = 100;
     private GoogleApiClient mGoogleApiClient;
 
-    public SendMessageService() {
-        super(SendMessageService.class.getSimpleName());
+    public PhoneSendMessageService() {
+        super(PhoneSendMessageService.class.getSimpleName());
     }
 
     Intent messageIntent;
@@ -54,21 +52,18 @@ public class SendMessageService extends IntentService implements GoogleApiClient
     public void onConnected(Bundle connectionHint) {
         if (mGoogleApiClient.isConnected()) {
             if (messageIntent.getAction().equals(ACTION_REMOTE_ALARM_ON)) {
-                WearNotificationManager.showMainNotificationStop(this);
-                new SendMessageTask(mGoogleApiClient, this, SendMessageTask.SendMessageType.FIND_ON).execute();
+                new PhoneSendMessageTask(mGoogleApiClient, this, PhoneSendMessageTask.SendMessageType.FIND_ON).execute();
+                PhoneNotificationManager.showWearNotificationStop(this);
             } else if (messageIntent.getAction().equals(ACTION_REMOTE_ALARM_OFF)) {
-                WearNotificationManager.dismiss(this, WearNotificationManager.PHONE_CONTROL_NOTIFICATION);
-                new SendMessageTask(mGoogleApiClient, this, SendMessageTask.SendMessageType.FIND_OFF).execute();
+                PhoneNotificationManager.dismiss(this, PhoneNotificationManager.WEAR_CONTROL_NOTIFICATION);
+                new PhoneSendMessageTask(mGoogleApiClient, this, PhoneSendMessageTask.SendMessageType.FIND_OFF).execute();
+                new PhoneSendMessageTask(mGoogleApiClient, this, PhoneSendMessageTask.SendMessageType.DISMISS_WEAR_NOTIFICATION).execute();
             } else if (messageIntent.getAction().equals(ACTION_LOCAL_ALARM_OFF)) {
-                if (WearableEventService.vibe != null) {
-                    WearableEventService.vibe.cancel();
+                if (PhoneEventService.vibe != null) {
+                    PhoneEventService.vibe.cancel();
                 }
-                WearNotificationManager.dismiss(this, WearNotificationManager.WEAR_CONTROL_NOTIFICATION);
-
-            } else if (messageIntent.getAction().equals(ACTION_LOCAL_ALARM_ON)) {
-                WearNotificationManager.showWearNotification(this);
-            } else if (messageIntent.getAction().equals(ACTION_OPEN)) {
-                new SendMessageTask(mGoogleApiClient, this, SendMessageTask.SendMessageType.OPEN).execute();
+                PhoneNotificationManager.dismiss(this, PhoneEventService.FORGOT_WEAR_NOTIFICATION_ID);
+                new PhoneSendMessageTask(mGoogleApiClient, this, PhoneSendMessageTask.SendMessageType.DISMISS_WEAR_NOTIFICATION).execute();
             }
         } else {
             Log.e(TAG, "Failed to toggle alarm on phone - Client disconnected from Google Play "
