@@ -8930,7 +8930,11 @@ false
             <file
                 path="/home/r2doesinc/Desktop/Leash/Application/src/main/res/values/strings.xml"
                 qualifiers="" >
+                <string name="left_wear_title" >Forgetting something?
+                </string>
                 <string name="app_name" >Leash
+                </string>
+                <string name="left_wear_content" >You may have left your Wear device behind.
                 </string>
             </file>
             <file
@@ -8938,6 +8942,11 @@ false
                 path="/home/r2doesinc/Desktop/Leash/Application/src/main/res/drawable-xhdpi/ic_launcher.png"
                 qualifiers="xhdpi-v4"
                 type="drawable" />
+            <file
+                name="pref_general"
+                path="/home/r2doesinc/Desktop/Leash/Application/src/main/res/xml/pref_general.xml"
+                qualifiers=""
+                type="xml" />
             <file
                 name="main"
                 path="/home/r2doesinc/Desktop/Leash/Application/src/main/res/menu/main.xml"

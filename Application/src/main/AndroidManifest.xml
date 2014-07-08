@@ -3,6 +3,7 @@
           package="com.t3hh4xx0r.leash">
 
     <uses-sdk android:minSdkVersion="18" android:targetSdkVersion="20" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
             android:icon="@drawable/ic_launcher"
@@ -15,13 +16,14 @@
                 android:value="@integer/google_play_services_version" />
 
         <service
-            android:name=".SoundAlarmListenerService" >
+            android:name=".DeviceEventService" >
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
             </intent-filter>
         </service>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".SettingsActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

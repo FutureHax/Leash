@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">Leash</string>
-
+    <string name="left_wear_title">Forgetting something?</string>
+    <string name="left_wear_content">You may have left your Wear device behind.</string>
 </resources>

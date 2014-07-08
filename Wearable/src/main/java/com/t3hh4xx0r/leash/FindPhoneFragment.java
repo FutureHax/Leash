@@ -48,6 +48,7 @@ public class FindPhoneFragment extends Fragment {
 //                openAnim.start();
 
                 ((LeashActivity) getActivity()).findPhone();
+                getActivity().finish();
 
             }
         });

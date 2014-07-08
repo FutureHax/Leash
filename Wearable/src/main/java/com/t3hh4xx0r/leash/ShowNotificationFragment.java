@@ -56,23 +56,11 @@ public class ShowNotificationFragment extends Fragment {
                 }, 2739);
 //                openAnim.stop();
 //                openAnim.start();
-                ((LeashActivity) getActivity()).showNotification(true);
+                NotificationManager.showMainNotificationStart(getActivity());
+                getActivity().finish();
             }
         });
         return root;
-    }
-
-    public void doMessageCheck() {
-        if (mGoogleApiClient.isConnected()) {
-            new OpenOnPhoneTask(mGoogleApiClient, getActivity()).execute();
-        } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                  doMessageCheck();
-                }
-            }, 100);
-        }
     }
 
 }

@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Leash"
+        android:summary="Notify when disconnected"/>
+    <SwitchPreference
+        android:key="enable_leash_wear"
+        android:title="Enable Leash On Wear"
+        android:defaultValue="true" />
+    <SwitchPreference
+        android:key="enable_leash_phone"
+        android:title="Enable Leash On Phone"
+        android:defaultValue="true" />
+
+    <PreferenceCategory android:title="Find Android Wear" />
+
+    <Preference
+        android:key="find_wear"
+        android:title="Find Wear"/>
+
+    <Preference
+        android:key="notification"
+        android:enabled="false"
+        android:title="Notification Sound"/>
+
+
+
+</PreferenceScreen>
+<!-- From: file:/home/r2doesinc/Desktop/Leash/Application/src/main/res/xml/pref_general.xml -->
