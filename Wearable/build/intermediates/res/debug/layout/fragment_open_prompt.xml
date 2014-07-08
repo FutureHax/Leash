@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/propt_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Swipe to configure app on your device."
+        android:id="@+id/textView"
+        android:textColor="#434343"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="12dp" />
+</RelativeLayout>
+<!-- From: file:/home/r2doesinc/Desktop/Leash/Wearable/src/main/res/layout/fragment_open_prompt.xml -->

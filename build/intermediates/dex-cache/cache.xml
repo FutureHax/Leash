@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/home/r2doesinc/Desktop/Leash/Wearable/build/intermediates/pre-dexed/debug/classes-98b5df6324027467a6b1be75277ab8fe3b47e73b.jar"
+        jar="/home/r2doesinc/Desktop/Leash/build/intermediates/exploded-aar/com.google.android.support/wearable/1.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="6804efbb78d7facc2e1aa107c7342bee83afae45"/>
+    <item
+        dex="/home/r2doesinc/Desktop/Leash/Wearable/build/intermediates/pre-dexed/debug/classes-0d62fc0ce8d5a2347f4165c212ea19e4669d3754.jar"
+        jar="/home/r2doesinc/Desktop/Leash/build/intermediates/exploded-aar/com.android.support/support-v13/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e128103d5281ddd26195a7f980b36d0d005a4e56"/>
+    <item
+        dex="/home/r2doesinc/Desktop/Leash/Application/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-799167c6e541767a4be80dfd72ca9dde52b5c598.jar"
+        jar="/home/r2doesinc/Desktop/Leash/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="/home/r2doesinc/Desktop/Leash/Application/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-363ffbbe06fa238a450b9c3fbd53e01158eac590.jar"
+        jar="/home/r2doesinc/android-studio/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="/home/r2doesinc/Desktop/Leash/Wearable/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-e413ba193a9136ffcb24f43b6fc07579da94307b.jar"
+        jar="/home/r2doesinc/Desktop/Leash/build/intermediates/exploded-aar/com.android.support/support-v13/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="27bbd3982cdfe4468a9bf99c8c773734a9049e33"/>
+    <item
+        dex="/home/r2doesinc/Desktop/Leash/Application/build/intermediates/pre-dexed/debug/classes-5ec64c3c94b079f3e226fcf77c4057bc96e66ded.jar"
+        jar="/home/r2doesinc/Desktop/Leash/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
+    <item
+        dex="/home/r2doesinc/Desktop/Leash/Application/build/intermediates/pre-dexed/debug/classes-e09da1ffcf025a027f34208c68362da2be658804.jar"
+        jar="/home/r2doesinc/Desktop/Leash/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+
+</pre-dex-items>
