@@ -1,6 +1,8 @@
 package com.t3hh4xx0r.leash;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Ringtone;
@@ -12,8 +14,12 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.internal.me;
 import com.google.android.gms.wearable.Wearable;
 
 /**
@@ -135,6 +141,55 @@ public class SettingsActivity extends PreferenceActivity {
         } else {
             findPreference("notification").setSummary("");
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int id, MenuItem item) {
+        int ID = item.getItemId();
+
+        if (ID == R.id.menu_contact) {
+            showFeedbackChooser();
+        }
+        return super.onMenuItemSelected(id, item);
+    }
+
+    public void showFeedbackChooser() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setPositiveButton("Share", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, R.string.app_name);
+                String sAux = "Check out this amazing application! ";
+                sAux = sAux
+                        + "https://play.google.com/store/apps/details?id=com.t3hh4xx0r.leash \n\n";
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, "Share via..."));
+            }
+        });
+        b.setNegativeButton("Send Feedback", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final Intent emailIntent = new Intent(
+                        android.content.Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+                        new String[] { "r2doesinc@futurehax.com" });
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                        "Leash Feedback");
+                startActivity(Intent.createChooser(emailIntent, "Send via..."));
+            }
+        });
+        b.create().show();
+
     }
 
     @Override

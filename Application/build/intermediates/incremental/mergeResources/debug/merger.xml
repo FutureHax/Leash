@@ -8952,6 +8952,16 @@ false
                 path="/home/r2doesinc/Desktop/Leash/Application/src/main/res/menu/main.xml"
                 qualifiers=""
                 type="menu" />
+            <file
+                name="ic_action_feedback"
+                path="/home/r2doesinc/Desktop/Leash/Application/src/main/res/drawable-hdpi/ic_action_feedback.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_feedback"
+                path="/home/r2doesinc/Desktop/Leash/Application/src/main/res/drawable-xhdpi/ic_action_feedback.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
         </source>
         <source path="/home/r2doesinc/Desktop/Leash/Application/build/generated/res/rs/debug" />
         <source path="/home/r2doesinc/Desktop/Leash/Application/build/generated/res/generated/debug" />

@@ -1,6 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.t3hh4xx0r.leash.findphone.MainActivity" >
-
+    <item
+        android:id="@+id/menu_contact"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_feedback"
+        android:orderInCategory="102"
+        android:title="Send Feedback"/>
 </menu>
 <!-- From: file:/home/r2doesinc/Desktop/Leash/Application/src/main/res/menu/main.xml -->
