@@ -33,6 +33,11 @@ public class PhoneEventService extends WearableListenerService {
     }
 
     @Override
+    public void onPeerConnected(com.google.android.gms.wearable.Node peer) {
+        PhoneNotificationManager.dismissAll(this);
+    }
+
+    @Override
     public void onPeerDisconnected(com.google.android.gms.wearable.Node peer) {
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("enable_leash_phone", true)) {
             Intent toggleAlarmOperation = new Intent(this, PhoneSendMessageService.class);

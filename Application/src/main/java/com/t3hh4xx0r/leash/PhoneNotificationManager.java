@@ -69,6 +69,8 @@ public class PhoneNotificationManager {
     }
 
     public static void dismissAll(Context ctx) {
+        Intent rIntent = new Intent(ctx, SoundAndVibrateAlertService.class);
+        ctx.stopService(rIntent);
         ((android.app.NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE)).cancel(PHONE_CONTROL_NOTIFICATION);
         ((android.app.NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE)).cancel(WEAR_CONTROL_NOTIFICATION);
         ((android.app.NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE)).cancel(FORGOT_WEAR_NOTIFICATION_ID);
