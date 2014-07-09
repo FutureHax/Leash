@@ -4,6 +4,8 @@
 
     <uses-sdk android:minSdkVersion="18" android:targetSdkVersion="20" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
             android:icon="@drawable/ic_launcher"
@@ -11,6 +13,7 @@
             android:theme="@android:style/Theme.Holo.Light"
             android:allowBackup="true">
 
+        <service android:name=".SoundAndVibrateAlertService"/>
         <service android:name=".PhoneSendMessageService"/>
 
 

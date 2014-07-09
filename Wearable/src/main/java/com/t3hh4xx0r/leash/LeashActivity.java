@@ -27,7 +27,7 @@ public class LeashActivity extends Activity {
         toggleAlarmOperation.setAction(SendMessageService.ACTION_REMOTE_ALARM_ON);
         startService(toggleAlarmOperation);
 
-        WearNotificationManager.showMainNotificationStop(this);
+//        WearNotificationManager.showMainNotificationStop(this);
     }
 
     public void openOnPhone() {

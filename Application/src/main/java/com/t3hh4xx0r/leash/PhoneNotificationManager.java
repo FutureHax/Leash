@@ -16,6 +16,7 @@ public class PhoneNotificationManager {
     public static final int PHONE_CONTROL_NOTIFICATION = 2;
 
     public static final int WEAR_CONTROL_NOTIFICATION = 3;
+    public static final int FORGOT_WEAR_NOTIFICATION_ID = 11;
 
     public static void showPhoneNotificationStop(Context ctx) {
         // Create a notification with an action to toggle an alarm on the phone.
@@ -32,8 +33,9 @@ public class PhoneNotificationManager {
         notification = new Notification.Builder(ctx)
                 .setContentTitle(title)
                 .setContentText("Finding your phone.")
-                .addAction(R.drawable.ic_launcher, "TURN OFF", toggleAlarmIntent)
+                .addAction(R.drawable.ic_launcher, "Found my phone", toggleAlarmIntent)
                 .setSmallIcon(R.drawable.ic_launcher)
+                .setAutoCancel(true)
                 .setVibrate(new long[]{0, 50})  // Vibrate to bring card to top of stream.
                 .setPriority(Notification.PRIORITY_MAX);
 
@@ -55,9 +57,10 @@ public class PhoneNotificationManager {
         title.setSpan(new RelativeSizeSpan(0.85f), 0, title.length(), Spannable.SPAN_POINT_MARK);
         notification = new Notification.Builder(ctx)
                 .setContentTitle(title)
-                .setContentText("Finding your wear.")
-                .addAction(R.drawable.ic_launcher, "TURN OFF", toggleAlarmIntent)
+                .setContentText("Finding your Wear.")
+                .addAction(R.drawable.ic_launcher, "Found my Wear", toggleAlarmIntent)
                 .setSmallIcon(R.drawable.ic_launcher)
+                .setAutoCancel(true)
                 .setVibrate(new long[]{0, 50})  // Vibrate to bring card to top of stream.
                 .setPriority(Notification.PRIORITY_MAX);
 
@@ -65,7 +68,9 @@ public class PhoneNotificationManager {
                 .notify(WEAR_CONTROL_NOTIFICATION, notification.build());
     }
 
-    public static void dismiss(Context ctx, int id) {
-        ((android.app.NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE)).cancel(id);
+    public static void dismissAll(Context ctx) {
+        ((android.app.NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE)).cancel(PHONE_CONTROL_NOTIFICATION);
+        ((android.app.NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE)).cancel(WEAR_CONTROL_NOTIFICATION);
+        ((android.app.NotificationManager) ctx.getSystemService(ctx.NOTIFICATION_SERVICE)).cancel(FORGOT_WEAR_NOTIFICATION_ID);
     }
 }

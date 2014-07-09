@@ -51,7 +51,6 @@ public class WearableEventService extends WearableListenerService {
 
     private static final String TAG = "ExampleFindPhoneApp";
 
-    private static final int FORGOT_PHONE_NOTIFICATION_ID = 1;
 
     @Override
     public void onPeerDisconnected(com.google.android.gms.wearable.Node peer) {
@@ -78,17 +77,14 @@ public class WearableEventService extends WearableListenerService {
                     .setPriority(Notification.PRIORITY_MAX);
             Notification card = notificationBuilder.build();
             ((NotificationManager) getSystemService(NOTIFICATION_SERVICE))
-                    .notify(FORGOT_PHONE_NOTIFICATION_ID, card);
+                    .notify(WearNotificationManager.FORGOT_PHONE_NOTIFICATION_ID, card);
             vibe.vibrate(new long[]{0, 500, 250}, 0);
-
         }
     }
 
     @Override
     public void onPeerConnected(com.google.android.gms.wearable.Node peer) {
-        // Remove the "forgot phone" notification when connection is restored.
-        ((NotificationManager) getSystemService(NOTIFICATION_SERVICE))
-                .cancel(FORGOT_PHONE_NOTIFICATION_ID);
+        WearNotificationManager.dismissAll(this);
     }
 
     @Override
@@ -104,28 +100,10 @@ public class WearableEventService extends WearableListenerService {
             PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("enable_leash", true).commit();
         } else if (messageEvent.getPath().equals("disable_leash")) {
             PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("enable_leash", false).commit();
+        } else if (messageEvent.getPath().equals("dismiss")) {
+            vibe.cancel();
+            WearNotificationManager.dismissAll(this);
         }
-//        if (messageEvent.getPath().equals("find_wear_on")) {
-//            mOrigVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-//            mMediaPlayer.reset();
-//            // Sound alarm at max volume.
-//            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mMaxVolume, 0);
-//            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-//            try {
-//                mMediaPlayer.setDataSource(getApplicationContext(), mAlarmSound);
-//                mMediaPlayer.prepare();
-//            } catch (IOException e) {
-//                Log.e(TAG, "Failed to prepare media player to play alarm.", e);
-//            }
-//            mMediaPlayer.start();
-//
-//        } else if (messageEvent.getPath().equals("find_wear_off")) {
-//            // Reset the alarm volume to the user's original setting.
-//            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mOrigVolume, 0);
-//            if (mMediaPlayer.isPlaying()) {
-//                mMediaPlayer.stop();
-//            }
-//        }
     }
 
 }

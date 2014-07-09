@@ -55,14 +55,13 @@ public class PhoneSendMessageService extends IntentService implements GoogleApiC
                 new PhoneSendMessageTask(mGoogleApiClient, this, PhoneSendMessageTask.SendMessageType.FIND_ON).execute();
                 PhoneNotificationManager.showWearNotificationStop(this);
             } else if (messageIntent.getAction().equals(ACTION_REMOTE_ALARM_OFF)) {
-                PhoneNotificationManager.dismiss(this, PhoneNotificationManager.WEAR_CONTROL_NOTIFICATION);
+                PhoneNotificationManager.dismissAll(this);
                 new PhoneSendMessageTask(mGoogleApiClient, this, PhoneSendMessageTask.SendMessageType.FIND_OFF).execute();
                 new PhoneSendMessageTask(mGoogleApiClient, this, PhoneSendMessageTask.SendMessageType.DISMISS_WEAR_NOTIFICATION).execute();
             } else if (messageIntent.getAction().equals(ACTION_LOCAL_ALARM_OFF)) {
-                if (PhoneEventService.vibe != null) {
-                    PhoneEventService.vibe.cancel();
-                }
-                PhoneNotificationManager.dismiss(this, PhoneEventService.FORGOT_WEAR_NOTIFICATION_ID);
+                Intent rIntent = new Intent(this, SoundAndVibrateAlertService.class);
+                stopService(rIntent);
+                PhoneNotificationManager.dismissAll(this);
                 new PhoneSendMessageTask(mGoogleApiClient, this, PhoneSendMessageTask.SendMessageType.DISMISS_WEAR_NOTIFICATION).execute();
             }
         } else {

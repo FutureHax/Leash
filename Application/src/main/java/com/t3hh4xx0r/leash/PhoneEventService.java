@@ -3,9 +3,9 @@ package com.t3hh4xx0r.leash;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
+import android.net.Uri;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -18,18 +18,18 @@ import com.google.android.gms.wearable.WearableListenerService;
 public class PhoneEventService extends WearableListenerService {
 
 
-
-
     private static final String TAG = "Leash";
 
-    public static Vibrator vibe;
 
-    public static final int FORGOT_WEAR_NOTIFICATION_ID = 11;
+    Uri toneUri;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        String uriString = PreferenceManager.getDefaultSharedPreferences(this).getString("notification_tone", null);
+        if (uriString != null) {
+            toneUri = Uri.parse(uriString);
+        }
     }
 
     @Override
@@ -50,8 +50,9 @@ public class PhoneEventService extends WearableListenerService {
                     .setPriority(Notification.PRIORITY_MAX);
             Notification card = notificationBuilder.build();
             ((NotificationManager) getSystemService(NOTIFICATION_SERVICE))
-                    .notify(FORGOT_WEAR_NOTIFICATION_ID, card);
-            vibe.vibrate(new long[]{0, 500, 250}, 0);
+                    .notify(PhoneNotificationManager.FORGOT_WEAR_NOTIFICATION_ID, card);
+            Intent rIntent = new Intent(this, SoundAndVibrateAlertService.class);
+            startService(rIntent);
         }
     }
 
@@ -64,10 +65,12 @@ public class PhoneEventService extends WearableListenerService {
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         } else if (messageEvent.getPath().equals("find_phone_on")) {
-            vibe.vibrate(new long[]{0, 500, 250}, 0);
+            Intent rIntent = new Intent(this, SoundAndVibrateAlertService.class);
+            startService(rIntent);
             PhoneNotificationManager.showPhoneNotificationStop(this);
         } else if (messageEvent.getPath().equals("find_phone_off")) {
-            vibe.cancel();
+            Intent rIntent = new Intent(this, SoundAndVibrateAlertService.class);
+            stopService(rIntent);
         }
     }
 }

@@ -3,6 +3,9 @@ package com.t3hh4xx0r.leash;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -27,6 +30,9 @@ import com.google.android.gms.wearable.Wearable;
 public class SettingsActivity extends PreferenceActivity {
 
     GoogleApiClient mGoogleApiClient;
+    Ringtone ringTone;
+    RingtoneManager ringManager;
+    Intent ringIntent;
 
     /**
      * Determines whether to always show the simplified settings UI, where
@@ -107,7 +113,6 @@ public class SettingsActivity extends PreferenceActivity {
                             .getBoolean(preference.getKey(), true)
             );
         }
-
     }
 
     @Override
@@ -116,11 +121,26 @@ public class SettingsActivity extends PreferenceActivity {
         if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+
+        if (ringTone != null && ringTone.isPlaying()) {
+            ringTone.stop();
+        }
+    }
+
+    public void handleRingtoneUri() {
+        String uriString = PreferenceManager.getDefaultSharedPreferences(this).getString("notification_tone", "null");
+        if (!uriString.equals("null")) {
+            ringTone = ringManager.getRingtone(this, Uri.parse(uriString));
+            findPreference("notification").setSummary(ringTone.getTitle(this));
+        } else {
+            findPreference("notification").setSummary("");
+        }
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        ringManager = new RingtoneManager(this);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -156,15 +176,28 @@ public class SettingsActivity extends PreferenceActivity {
             }
         });
 
+        findPreference("notification").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                ringIntent = new Intent(ringManager.ACTION_RINGTONE_PICKER);
+                ringIntent.putExtra(ringManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_RINGTONE);
+                ringIntent.putExtra(ringManager.EXTRA_RINGTONE_TITLE, "Select a notification tone");
+
+                String uri = null;
+                if (uri != null) {
+                    ringIntent.putExtra(ringManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(uri));
+                } else {
+                    ringIntent.putExtra(ringManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
+                }
+
+                startActivityForResult(ringIntent, 0);
+                return false;
+            }
+        });
+
+        handleRingtoneUri();
 
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
 
     /**
      * Shows the simplified settings UI if the device configuration if the
@@ -187,6 +220,25 @@ public class SettingsActivity extends PreferenceActivity {
         // to reflect the new value, per the Android Design guidelines.
         bindPreferenceSummaryToValue(findPreference("enable_leash_phone"));
         bindPreferenceSummaryToValue(findPreference("enable_leash_wear"));
+    }
+
+    private void play(Uri uri) {
+        if (uri != null) {
+            ringTone = ringManager.getRingtone(this, uri);
+            ringTone.play();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        switch (resultCode) {
+            case RESULT_OK:
+                Uri uri = intent.getParcelableExtra(ringManager.EXTRA_RINGTONE_PICKED_URI);
+
+                PreferenceManager.getDefaultSharedPreferences(this).edit().putString("notification_tone", uri == null ? "null" : uri.toString()).commit();
+                handleRingtoneUri();
+                //play(uri);
+                break;
+        }
     }
 
     /**

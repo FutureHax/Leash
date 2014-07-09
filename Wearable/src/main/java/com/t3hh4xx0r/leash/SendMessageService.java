@@ -54,17 +54,16 @@ public class SendMessageService extends IntentService implements GoogleApiClient
     public void onConnected(Bundle connectionHint) {
         if (mGoogleApiClient.isConnected()) {
             if (messageIntent.getAction().equals(ACTION_REMOTE_ALARM_ON)) {
-                WearNotificationManager.showMainNotificationStop(this);
+                WearNotificationManager.dismissAll(this);
                 new SendMessageTask(mGoogleApiClient, this, SendMessageTask.SendMessageType.FIND_ON).execute();
             } else if (messageIntent.getAction().equals(ACTION_REMOTE_ALARM_OFF)) {
-                WearNotificationManager.dismiss(this, WearNotificationManager.PHONE_CONTROL_NOTIFICATION);
+                WearNotificationManager.dismissAll(this);
                 new SendMessageTask(mGoogleApiClient, this, SendMessageTask.SendMessageType.FIND_OFF).execute();
             } else if (messageIntent.getAction().equals(ACTION_LOCAL_ALARM_OFF)) {
                 if (WearableEventService.vibe != null) {
                     WearableEventService.vibe.cancel();
                 }
-                WearNotificationManager.dismiss(this, WearNotificationManager.WEAR_CONTROL_NOTIFICATION);
-
+                WearNotificationManager.dismissAll(this);
             } else if (messageIntent.getAction().equals(ACTION_LOCAL_ALARM_ON)) {
                 WearNotificationManager.showWearNotification(this);
             } else if (messageIntent.getAction().equals(ACTION_OPEN)) {
